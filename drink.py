@@ -31,9 +31,9 @@ def drink(phenny, input):
     elif input.group(2) == "top":
         top(con, phenny)
     elif input.group(2) == "reset":
-        phenny.say("Okay " + input.nick + ", I'm resetting your scores")
-        reset(con, input.nick)
-        log(input.nick, "reset")
+        phenny.say("Okay " + username + ", I'm resetting your scores")
+        reset(con, username)
+        log(username, "reset")
     else:
         phenny.say("usage: .drink [0-9]\.[0-9] or .drink top or .drink reset")    
 
@@ -92,5 +92,3 @@ def log(username, message):
 #phenny shit
 drink.commands = ["drink"]
 drink.priority = "high"
-
-#drink("0.2")
