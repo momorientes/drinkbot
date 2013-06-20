@@ -24,7 +24,7 @@ def drink(phenny, input):
     if not input.group(2):
         phenny.say("usage: .drink [0-9]\.[0-9] or .drink top or .drink reset")    
     #only allow floats < 10 
-    elif re.match(r'^\d\.\d$', input.group(2)):
+    elif re.match(r'\d(?:\.\d)?$', input.group(2)):
         value = input.group(2)
         updateDB(username, value, con, phenny)
         log(username, value)
@@ -86,7 +86,7 @@ def updateDB(username, value, con, phenny):
 
 def log(username, message):
     f = open('drink.log', 'a')
-    f.write(str(time.time()) + " " + username + " " + str(value) +"\n")
+    f.write(str(time.time()) + " " + username + " " + str(message) +"\n")
     f.close()
 
 #phenny shit
