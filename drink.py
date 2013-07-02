@@ -54,6 +54,14 @@ def top(con, phenny):
         amount_today += top_amount[i][1] + ", "
     phenny.say(amount_today)
     
+    cur.execute('SELECT name, (CASE active_days WHEN 0 THEN 0 ELSE (drinks_total / active_days) END) AS statistic FROM users ORDER BY statistic DESC LIMIT 3')
+    top_avg = cur.fetchall()
+    top = "Top average: " 
+    for i in range(0, len(top_avg):
+            top += top_avg[i][0] + ": "
+            top += top_avg[i][1] + ", "
+    phenny.say(top)
+
 def updateDB(username, value, con, phenny):
     cur = con.cursor()
     cur.execute('SELECT COUNT * FROM users WHERE username=?', (username,))
