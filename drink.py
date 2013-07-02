@@ -42,6 +42,17 @@ def reset(con, username, phenny):
 
 def top(con, phenny):
     cur = con.cursor()
+    cur.execute('SELECT u.name, SUM(t.amount) AS amount  FROM users u\
+                JOIN drinks_today t ON (u.user_id = t.user_id)\
+                GROUP BY (u.name) ORDER BY amount DESC LIMIT 3')
+    top_amount = cur.fetchall()
+    amount_today = "Today: "
+    for i in range (0,len(top_amount)):
+        #username
+        amount_today += top_amont[i][0] + ": "
+        #amount
+        amount_today += top_amount[i][1] + ", "
+    phenny.say(amount_today)
     
 def updateDB(username, value, con, phenny):
     cur = con.cursor()
