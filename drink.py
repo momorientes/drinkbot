@@ -57,7 +57,7 @@ def top(con, phenny):
     cur.execute('SELECT name, (CASE active_days WHEN 0 THEN 0 ELSE (drinks_total / active_days) END) AS statistic FROM users ORDER BY statistic DESC LIMIT 3')
     top_avg = cur.fetchall()
     top = "Top average: " 
-    for i in range(0, len(top_avg):
+    for i in range(0, len(top_avg)):
             top += top_avg[i][0] + ": "
             top += top_avg[i][1] + ", "
     phenny.say(top)
@@ -70,7 +70,7 @@ def updateDB(username, value, con, phenny):
         #create user
         cur.execute('INSERT INTO users(name) VALUES (?)', (username,)) 
         con.commit()
-    cur.execute('SELECT user_id FROm users WHERE username=?', (username,))
+    cur.execute('SELECT user_id FROM users WHERE username=?', (username,))
     user_id = cur.fetchone()
     timestamp = time.time()
     cur.execute('INSERT INTO drinks_today(user_id, amount, timestamp) VALUES (?,?,?)', (user_id, value, timestamp))
