@@ -6,10 +6,16 @@ A phenny module to keep track of the channels drinking habits
 SETUP
 =======
 
-move drink.py to your phenny directory and whitleist it in you ~/.phenny/defaults.py if neccessary.
+move drink.py to your modules directory and whitleist it in your ~/.phenny/defaults.py if neccessary.
 
-add
+In your phenny base dir:
+`sqlite3 drink.db`
+In the sql shell:
+`.read drink.sql`
+`.exit`
+
+Now add
 
 `@daily /path/to/dailyReset.py`
 
-to your crontab using `crontab -e`
+to your crontab using `crontab -e` and you're done
