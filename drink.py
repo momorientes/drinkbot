@@ -36,7 +36,7 @@ def reset(con, username, phenny):
     cur = con.cursor()
     cur.execute('DELETE FROM drinks_today JOIN users \
             ON users.user_id = drinks_today.user_id\
-            WHERE users.username=?', (username,))
+            WHERE users.name=?', (username,))
     phenny.say("Okay " + username + ", I'm resetting todays scores")
     con.commit()
 
@@ -64,18 +64,18 @@ def top(con, phenny):
 
 def updateDB(username, value, con, phenny):
     cur = con.cursor()
-    cur.execute('SELECT COUNT * FROM users WHERE username=?', (username,))
+    cur.execute('SELECT COUNT(*) FROM users WHERE name=?', (username,))
     exists = cur.fetchone()
     if not exists:
         #create user
         cur.execute('INSERT INTO users(name) VALUES (?)', (username,)) 
         con.commit()
-    cur.execute('SELECT user_id FROM users WHERE username=?', (username,))
+    cur.execute('SELECT user_id FROM users WHERE name=?', (username,))
     user_id = cur.fetchone()
     timestamp = time.time()
     cur.execute('INSERT INTO drinks_today(user_id, amount, timestamp) VALUES (?,?,?)', (user_id, value, timestamp))
     con.commit()
-    cur.execute('SELECT SUM(amount) FROM drinks_daily WHERE user_id=?', (user_id,))
+    cur.execute('SELECT SUM(amount) FROM drinks_today WHERE user_id=?', (user_id,))
     todays_amount = cur.fetchone()
     phenny.say("Okay " + username + ", you drank " + todays_amount + "l today, keep on drinking!")
 
